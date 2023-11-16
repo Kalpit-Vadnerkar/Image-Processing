@@ -23,6 +23,7 @@
 #include "ImgProc.h"
 #include "ImageProcessing.h"
 #include "Fractals.h"
+#include "ImageStatistics.h"
 
 using namespace std;
 
@@ -98,7 +99,7 @@ class StarterViewer
     
     void SetImageData(img::ImgProc* img) { imgData = img; }
     
-    void writeImageWithTimestamp();
+    void writeImageWithTimestamp(const std::string& fileExtension);
     
     void ApplyLinearFiltering();
     

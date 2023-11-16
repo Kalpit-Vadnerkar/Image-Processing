@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['reset_21',['Reset',['../classstarter_1_1StarterViewer.html#a657beda8fdac371ba105cff7a82bf25e',1,'starter::StarterViewer']]],
+  ['reshape_22',['Reshape',['../classstarter_1_1StarterViewer.html#aa62ab7dbff4cba6782decc9aa6dead8b',1,'starter::StarterViewer']]]
+];

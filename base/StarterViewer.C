@@ -199,7 +199,10 @@ void StarterViewer::Keyboard( unsigned char key, int x, int y )
 	     Usage();
       break;
       case 'j': 
-             writeImageWithTimestamp();                
+             writeImageWithTimestamp("jpeg");                
+      break;
+      case 'o': 
+             writeImageWithTimestamp("EXR");                
       break;
       case 'g':
              imgData->gamma(0.9f);
@@ -213,19 +216,24 @@ void StarterViewer::Keyboard( unsigned char key, int x, int y )
       case 'J':
              ApplyFractalWarpLUT(*imgData);
       break;
+      case 'C':
+             imgData->rms_contrast();
+      case 'H':
+             ApplyCumulative(*imgData);
    }
 }
 
-void StarterViewer::writeImageWithTimestamp()
+void StarterViewer::writeImageWithTimestamp(const std::string& fileExtension)
 {
     std::time_t now = std::time(0);
-    std::string filename = "Image" + std::to_string(now) + ".jpg";
-    
+    std::string filename = "Image" + std::to_string(now) + "." + fileExtension;
+
     if (imgData->writeImage(filename))
     {
         std::cout << "Image written to " << filename << '\n';
-    }   
+    }
 }
+
 
 void StarterViewer::ApplyLinearFiltering() {
     img::Stencil stencil = img::makeRandomFilter();  

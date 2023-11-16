@@ -39,6 +39,7 @@ public:
     long index(int i, int j) const { return i + width * j; }
     
     void gamma(float s);
+    void rms_contrast();
 };
 
 } // namespace img

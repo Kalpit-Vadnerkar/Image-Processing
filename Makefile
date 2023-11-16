@@ -2,6 +2,7 @@
 OFILES = base/ImgProc.o \
          base/ImageProcessing.o \
          base/Fractals.o  \
+         base/ImageStatistics.o \
          base/StarterViewer.o \
          base/imgviewer.o
 

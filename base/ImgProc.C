@@ -126,12 +126,50 @@ void ImgProc::set_value( int i, int j, const std::vector<float>& pixel)
 
 void ImgProc::gamma(float s) 
 {
-    #pragma omp parallel for
+#pragma omp parallel for
     for(long i = 0; i < Nsize; i++) 
     {
         image_data_ptr[i] = std::pow(image_data_ptr[i], s);
     }
 }
+
+void ImgProc::rms_contrast() {
+#pragma omp parallel for   
+    for (int c = 0; c < channels; c++) {
+        double avg = 0;
+        double rms = 0;
+
+        // Calculate the average for each channel
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                avg += image_data_ptr[index(i, j, c)];
+            }
+        }
+        avg /= (width * height);
+
+        // Calculate the rms for each channel
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {	
+                double diff = image_data_ptr[index(i, j, c)] - avg;
+                rms += diff * diff;
+            }
+        }
+        rms = std::sqrt(rms / (width * height));
+
+        // Normalize the channel
+        for (int i = 0; i < height; i++) { 
+            for (int j = 0; j < width; j++) {
+                if (rms != 0) {
+                    image_data_ptr[index(i, j, c)] = (image_data_ptr[index(i, j, c)] - avg) / rms;
+                } else {
+                    image_data_ptr[index(i, j, c)] = 0;
+                }
+            }
+        }
+    }
+}
+
+
 
 } // namespace img
 
